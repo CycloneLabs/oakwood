@@ -1,0 +1,118 @@
+$gray-4: #373949;
+
+$red: #FF6A2F;
+$green: #8BC34A;
+$blue: #00B0FB;
+
+$gap: 20px;
+
+$font-sizes: 10, 12, 16;
+
+$em-size: 2048;
+$capital-height: 1456 / $em-size;
+
+@mixin text-size($size: normal) {
+  $size: to-lower-case(unquote($size));
+
+  @if($size == small) {
+    font-size: (nth($font-sizes, 1) / $capital-height) + px;
+  }
+  @else if($size == normal) {
+    font-size: (nth($font-sizes, 2) / $capital-height) + px;
+  }
+  @else {
+    font-size: (nth($font-sizes, 3) / $capital-height) + px;
+  }
+}
+
+//TODO Refactor
+
+@mixin font-size($size: nth($font-sizes, 2)) {
+  $font-size: $size / $capital-height;
+  font-size: $font-size + px;
+}
+
+@mixin item($display: flex) {
+  border-radius: 30px;
+  display: $display;
+  height: 60px;
+  line-height: 1.2;
+}
+
+
+.button {
+  @include text-size(small);
+  @include item(inline-flex);
+  align-items: center;
+  appearance: initial;
+  background-color: $gray-4;
+  border: initial;
+  box-shadow: initial;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  justify-content: center;
+  margin: initial;
+  outline: initial;
+  padding-left: $gap;
+  padding-right: $gap;
+  pointer-events: auto;
+  text-decoration: initial;
+  text-transform: uppercase;
+  $button-height: 60px;
+
+  & + & {
+    margin-left: $gap * 0.5;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &--round {
+    justify-content: center;
+    min-width: $button-height;
+    padding-left: $gap * 0.5;
+    padding-right: $gap * 0.5;
+    text-align: center;
+    width: $button-height;
+  }
+
+  &--subbutton {
+    align-items: inherit;
+    background: $blue;
+    border-radius: inherit;
+    display: inherit;
+    height: inherit;
+    margin-left: $gap * 0.5;
+    margin-right: $gap * -1;
+    padding: inherit;
+  }
+
+  &--negative#{&} {
+    background: $red;
+  }
+
+  &--positive#{&} {
+    background: $green;
+  }
+
+  &--active#{&} {
+    background: $blue;
+  }
+
+  &--simple#{&} {
+    background: initial;
+    border: initial;
+    cursor: pointer;
+    height: initial;
+    padding: initial;
+    width: initial;
+  }
+
+  &--disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+}

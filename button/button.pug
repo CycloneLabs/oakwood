@@ -1,0 +1,5 @@
+button.button(
+  :class="classes",
+  :disabled="_types.indexOf('disabled') !== -1",
+  @click="$emit('click', $event)")
+  slot
