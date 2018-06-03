@@ -36,7 +36,7 @@
         const types = [];
         if (this.types) types.concat(this.types.split(',').map(String.prototype.trim));
         if (this.type) types.push(this.type.trim());
-        typesList.forEach(type => if(this[type]) types.push(type));
+        typesList.forEach(type => { if(this[type]) types.push(type) });
 
         return types.filter((value, index, array) => value && array.indexOf(value) === index)
       },
