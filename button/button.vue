@@ -3,55 +3,47 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      type: {
-        type: String,
-        required: false,
-        validator: type => (
-          ['round', 'simple', 'subbutton', 'negative', 'positive', 'active', 'disabled'].includes(type.trim())
-        ),
-      },
+  const typesList = ['default', 'disabled'];
 
-      types: {
-        type: String,
-        required: false,
-        default: () => '',
-        validator: types => (
-          types.split(',').every(type => (
-            ['round', 'simple', 'subbutton', 'negative', 'positive', 'active', 'disabled', ''].includes(type.trim())
-          ))
-        ),
-      },
-
-      disabled: {
-        type: Boolean,
-        required: false,
-        default: () => false,
-      },
-
-      active: {
-        type: Boolean,
-        required: false,
-        default: () => false,
-      },
+  const props = {
+    type: {
+      type: String,
+      required: false,
+      validator: type => typesList.indexOf(type.trim()) !== -1,
     },
 
+    types: {
+      type: String,
+      required: false,
+      validator: types => types.split(',')
+        .every(type => typesList.indexOf(type.trim()) !== -1),
+    },
+  }
+
+  typesList.map(type => props[type] = {
+    type: Boolean,
+    required: false,
+    default: false,
+  });
+
+  export default {
+
+    props: props,
+
     computed: {
-      _types() {
-        const externalTypes = [];
-        if (this.disabled) externalTypes.push('disabled');
-        if (this.active) externalTypes.push('active');
-        if (this.type) externalTypes.push(this.type.trim());
-        return this.types
-          .split(',')
-          .map(type => type.trim())
-          .concat(externalTypes)
-          .filter((value, index, array) => value && array.indexOf(value) === index);
+
+      computedTypes() {
+        const types = [];
+        if (this.types) types.concat(this.types.split(',').map(String.prototype.trim));
+        if (this.type) types.push(this.type.trim());
+        typesList.forEach(type => if(this[type]) types.push(type));
+
+        return types.filter((value, index, array) => value && array.indexOf(value) === index)
       },
 
       classes() {
-        return this._types.map(type => `button--${type}`).join(' '); // eslint-disable-line no-underscore-dangle
+        if (!this.computedTypes.length) return 'button' + typesList[0];
+        return this.computedTypes.map(type => 'button--'.concat(type)).join(' ');
       },
     },
   };
