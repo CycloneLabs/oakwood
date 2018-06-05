@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import progress from './../../progress/plugin';
+import progress from './../../dist/progress'
 
 Vue.use(progress);
 

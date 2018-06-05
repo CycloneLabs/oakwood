@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtraneousFileCleanupPlugin = require('webpack-extraneous-file-cleanup-plugin');
 const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
-const dist = 'dist';
+const dist = 'public';
 
 module.exports = {
   entry: {
@@ -122,7 +122,7 @@ if (process.env.NODE_ENV === 'production') {
     {
       enforce: "pre",
       test: /\.(js|vue)$/,
-      exclude: /node_modules/,
+      exclude: /node_modules|dist/,
       loader: "eslint-loader",
       options: {
         formater: require('eslint-friendly-formatter'),
