@@ -37,7 +37,7 @@
 
     data() {
       return {
-        buttonTypes: ['round', 'simple', 'subbutton', 'negative', 'positive', 'active', 'disabled'],
+        buttonTypes: ['default', 'disabled'],
       };
     },
   };
