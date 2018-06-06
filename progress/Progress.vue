@@ -2,7 +2,7 @@
   transition(duration = "200",
     enter-class = "progress--transparent",
     leave-to-class = "progress--transparent")
-    .progress(v-if = "value")
+    .progress(v-if = "value", :style = "style")
       .progress__circle
         .progress__counter
           template(v-if = "value") {{ value }}
@@ -18,6 +18,35 @@
       events.$on('terminate', this.terminate);
     },
 
+    props: {
+      spinner: {
+        default: '#7603BD',
+        type: String,
+        required: false,
+      },
+
+      background: {
+        default: '#FFFFFF',
+        type: String,
+        required: false,
+      },
+
+      size: {
+        default: 50,
+        required: false,
+      },
+    },
+
+    computed: {
+      style() {
+        return {
+          '--size': `${parseInt(this.size, 10)}px`,
+          '--spinner': this.hexToRgb(this.spinner),
+          '--background': this.hexToRgb(this.background),
+        };
+      },
+    },
+
     data() {
       return {
         value: 0,
@@ -25,6 +54,12 @@
     },
 
     methods: {
+      hexToRgb(hexString) {
+        const chunks = hexString.slice(-6).match(/.{1,2}/g);
+        const color = chunks.map(chunk => parseInt(chunk, 16)).join(', ');
+        return color;
+      },
+
       increment() {
         this.value += 1;
       },
@@ -42,8 +77,6 @@
 </script>
 
 <style lang="scss" scoped>
-  $spinner-color: #7603bd;
-
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
@@ -52,7 +85,7 @@
 
   .progress {
     align-items: center;
-    background: rgba(white, 0.2);
+    background: rgba(var(--background), 0.2);
     bottom: 0;
     display: flex;
     justify-content: center;
@@ -67,12 +100,12 @@
       align-items: center;
       animation: rotate 5s linear infinite;
       border-radius: 50%;
-      border: 5px solid $spinner-color;
-      border-bottom-color: rgba($spinner-color, 0.5);
+      border: 5px solid rgba(var(--spinner), 1);
+      border-bottom-color: rgba(var(--spinner), 0.5);
       display: flex;
-      height: 100px;
+      height: var(--size);
       justify-content: center;
-      width: 100px;
+      width: var(--size);
     }
 
     &__counter {
@@ -80,8 +113,7 @@
     }
 
     &--transparent {
-      // TODO: add styling
-      // otherwise why do you need this class
+      opacity: 0;
     }
   }
 
