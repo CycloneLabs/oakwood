@@ -1,0 +1,14 @@
+transition(duration="200",
+enter-active-class="popup--fade",
+leave-active-class="popup--fade",
+enter-class="popup--hidden",
+leave-to-class="popup--hidden")
+  .popup(@click.self="close(popup.prevent)", v-if = "Object.keys(popup).length")
+    .popup__container
+      .popup__header {{ popup.header }}
+        slot(name = "header")
+      .popup__body
+        slot
+      .popup__footer(ref="footer")
+        v-button.popup__button(@click = "close()") Отменить
+        slot(name = "actions")
