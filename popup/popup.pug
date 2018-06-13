@@ -5,8 +5,9 @@ enter-class="popup--hidden",
 leave-to-class="popup--hidden")
   .popup(@click.self="close(popup.prevent)", v-if = "Object.keys(popup).length")
     .popup__container
-      .popup__header {{ popup.header }}
-        slot(name = "header")
+      .popup__header
+        span {{ popup.header }}
+        v-button(v-if = "headerClose", @click = "close()") X
       .popup__body
         slot
       .popup__footer(ref="footer")

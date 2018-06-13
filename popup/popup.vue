@@ -10,11 +10,17 @@
       'v-button': button,
     },
 
+    data() {
+      return {
+        headerClose: false,
+      };
+    },
+
     props: {
       popup: {
         type: Object,
         required: true,
-      }
+      },
     },
 
     methods: {
