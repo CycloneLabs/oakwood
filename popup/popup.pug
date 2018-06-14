@@ -11,7 +11,7 @@ leave-to-class="popup--hidden")
       .popup__body
         slot
       .popup__footer(ref="footer")
-        slot(name = "actions--left")
+        slot(name = "actions-left")
         v-button.popup__button(@click = "close()") Отменить
         slot(name = "actions")
-        slot(name = "actions--right")
+        slot(name = "actions-right")
