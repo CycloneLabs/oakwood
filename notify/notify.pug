@@ -1,0 +1,18 @@
+.notification__container
+  block header
+
+  transition-group.notification__body(
+    :duration = "animation",
+    move-class = "notification--move",
+    enter-active-class = "notification--appear",
+    leave-active-class = "notification--disappear")
+    .notification(v-for = "notification in notifications",
+      :key = "notification.timestamp",
+      :class = "notification.className",
+      :style = "{'--animation': `${animation}ms`}"
+      @click.self = "destroyNotification(notification, notification.type === 'error')")
+      template
+        | {{ notification.message }}
+        block additional
+
+        v-button.notification__close(type = "simple", @click = "destroyNotification(notification)") ×

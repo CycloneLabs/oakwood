@@ -11,6 +11,8 @@
       hr
       v-button(@click="alert('click')") v-button(@click="alert('click')")
       hr
+      v-button(@click="notify") notify
+      hr
     .examples(name="input")
       v-input(v-model="hidden") v-input
       hr
@@ -40,14 +42,19 @@
       v-input(v-model="hidden", type="email") v-input(type="email")
       hr
       v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
+    v-notify(:timeout = "20000", :animation = "300")
 </template>
 
 <script>
   import button from './../../button/';
   import input from './../../input/';
 
+  import notify from './../../notify/notify.vue';
+  import events from './../../notify/events';
+
   export default {
     components: {
+      'v-notify': notify,
       'v-button': button,
       'v-input': input,
     },
@@ -62,6 +69,10 @@
     methods: {
       alert(string) {
         alert(string);
+      },
+
+      notify() {
+        events.$emit('default', 'Notification');
       },
     },
   };
