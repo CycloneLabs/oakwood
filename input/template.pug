@@ -1,0 +1,21 @@
+.input(:class="states")
+  label(:for="'input' + _uid").input__label
+    slot
+  .input__wrapper
+    template(v-if="$slots.before")
+      .input__before
+        slot(name="before")
+    input(:id="'input' + _uid").input__control(
+      :autofocus="autofocus",
+      :disabled="disabled",
+      :pattern="pattern",
+      :placeholder="placeholder",
+      :type="type",
+      :value="value",
+      @blur="focus = false",
+      @focus="focus = true",
+      @input="input"
+      )
+    template(v-if="$slots.after")
+      .input__after
+        slot(name="after")
