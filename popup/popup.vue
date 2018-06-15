@@ -1,0 +1,88 @@
+<template lang="pug">
+  include popup.pug
+</template>
+
+<script>
+  import button from './../button/button.vue';
+
+  export default {
+    components: {
+      'v-button': button,
+    },
+
+    data() {
+      return {
+        headerClose: false,
+      };
+    },
+
+    props: {
+      popup: {
+        type: Object,
+        required: true,
+      },
+    },
+
+    methods: {
+      close(prevent) {
+        if (prevent) return false;
+        this.$emit('close', this.popup.target);
+      },
+    },
+  }
+</script>
+
+<style lang="scss">
+  $white: #FFFFFF;
+  $black: #404251;
+  $z-index: 100;
+
+  .popup {
+    align-items: center;
+    color: $black;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba($black, 0.3);
+    z-index: $z-index;
+
+    &--fade {
+      transition: opacity 0.2s linear;
+    }
+
+    &--hidden {
+      opacity: 0;
+    }
+
+    &__header {
+      order: -1;
+      padding-bottom: 20px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: flex-end;
+      order: 1;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    &__container {
+      background: $white;
+      border-radius: 5px;
+      box-shadow: 0 0 15px rgba(black, 0.4);
+      left: 50%;
+      margin: auto;
+      max-width: 66vw;
+      min-width: 300px;
+      padding: 20px;
+    }
+  }
+</style>
