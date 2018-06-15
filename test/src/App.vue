@@ -43,8 +43,8 @@
 </template>
 
 <script>
-  import button from './../../button/';
-  import input from './../../input/';
+  import button from 'button/';
+  import input from 'input/';
 
   export default {
     components: {
