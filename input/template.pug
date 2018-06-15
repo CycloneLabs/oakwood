@@ -6,13 +6,14 @@
       .input__before
         slot(name="before")
     input(:id="'input' + _uid").input__control(
-      :type="type",
       :autofocus="autofocus",
-      :placeholder="placeholder",
       :disabled="disabled",
+      :pattern="pattern",
+      :placeholder="placeholder",
+      :type="type",
       :value="value",
-      @focus="focus = true",
       @blur="focus = false",
+      @focus="focus = true",
       @input="input"
       )
     template(v-if="$slots.after")

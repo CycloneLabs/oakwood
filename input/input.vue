@@ -3,12 +3,12 @@
 </template>
 
 <script>
+  const types = ['text', 'email', 'search', 'tel', 'url', 'password', 'number'];
+
   export default {
     data() {
       return {
-        revalue: '',
         focus: false,
-        hover: false,
         valid: true,
       };
     },
@@ -22,6 +22,7 @@
       type: {
         type: String,
         default: 'text',
+        validator: value => types.includes(value),
       },
     },
 

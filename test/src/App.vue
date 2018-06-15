@@ -26,9 +26,9 @@
       hr
       v-input(v-model="hidden", placeholder="Placeholder...") v-input(placeholder="Placeholder...")
       hr
-      v-input(v-model="hidden", :disabled="true") v-input(:disabled="true")
+      v-input(:disabled="true") v-input(:disabled="true")
       hr
-      v-input(v-model="hidden", :disabled="true", placeholder="???") v-input(:disabled="true", placeholder="???")
+      v-input(:disabled="true", placeholder="???") v-input(:disabled="true", placeholder="???")
       hr
       v-input(v-model="hidden", :disabled="true", value="???") v-input(:disabled="true", value="???")
       hr
@@ -38,6 +38,8 @@
       span v-model output: {{ message }}
       hr
       v-input(v-model="hidden", type="email") v-input(type="email")
+      hr
+      v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
 </template>
 
 <script>
