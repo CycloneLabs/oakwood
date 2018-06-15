@@ -1,50 +1,38 @@
 <template lang="pug">
-  include button.pug
+  include template.pug
 </template>
 
 <script>
   export default {
     props: {
-      types: {
-        type: String,
-        required: false,
-      },
-      default: {
-        type: Boolean,
-        required: false,
-        default: false,
-      },
-      disabled: {
-        type: Boolean,
-        required: false,
-        default: false,
-      }
+      types: String,
+      default: Boolean,
+      disabled: Boolean,
     },
 
     computed: {
       computedTypes() {
-        const props = Object.keys(this.$props).filter(prop => prop != 'types');
+        const props = Object.keys(this.$props).filter(prop => prop !== 'types');
         const types = props.filter(prop => this.$props[prop]);
 
-        if (this.types)
+        if (this.types) {
           types.push(...this.types
             .split(' ')
-            .map(type => type.trim())
-            .filter(type => {
-              if (props.includes(type.toLowerCase())) return true
-              else console.error(`button.vue: wrong prop given "${type}"`)
-            })
-          );
+            .map(type => type.trim().toLowerCase())
+            .filter(type => props.includes(type)));
+        }
 
-        return types.filter((value, i, arr) => value && arr.indexOf(value) === i)
+        return types.filter((value, i, arr) => value && arr.indexOf(value) === i);
       },
 
       classes() {
-        if (this.computedTypes.length)
-          return this.computedTypes.map(type => `button--${type}`).join(' ')
-        return `button--default`;
-      }
-    }
+        if (this.computedTypes.length) {
+          return this.computedTypes.map(type => `button--${type}`).join(' ');
+        }
+
+        return 'button--default';
+      },
+    },
   };
 
 </script>
@@ -54,7 +42,7 @@
     appearance: initial;
     background-color: transparent;
     border: none;
-    box-shadow: initial;
+    box-shadow: none;
     color: inherit;
     cursor: pointer;
     display: inline-flex;
@@ -78,13 +66,12 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.5),
-                  0 0 0 2px rgba(255, 105, 180, 0.5);
+      box-shadow: 0 2px #488144;
     }
 
     &:disabled,
     &--disabled {
-      filter: saturate(0);
+      opacity: 0.5;
       pointer-events: none;
     }
   }
