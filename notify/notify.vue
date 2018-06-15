@@ -38,7 +38,8 @@
     methods: {
       destroyNotification(target, prevent = false) {
         if (!prevent) {
-          this.notifications = this.notifications.filter(notification => notification !== target);
+          const index = this.notifications.indexOf(target);
+          this.notifications.splice(index, 1);
         }
       },
 
@@ -102,10 +103,6 @@
     &__body {
       display: flex;
       flex-flow: column nowrap;
-    }
-
-    &__close {
-      position: absolute;
     }
   }
 </style>
