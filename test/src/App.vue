@@ -42,7 +42,7 @@
       v-input(v-model="hidden", type="email") v-input(type="email")
       hr
       v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
-    v-notify(:timeout = "20000", :animation = "300")
+    v-notify(:timeout = "200000", :animation = "300")
 </template>
 
 <script>

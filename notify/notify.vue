@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import button from './../button/button.vue';
+  import button from './../button/';
   import events from './events';
 
   export default {
@@ -74,11 +74,8 @@
   }
 
   .notification {
-    background-color: rgba(grey, 0.5);
     box-sizing: border-box;
-    margin-top: 10px;
     overflow: hidden;
-    padding: 10px;
     position: relative;
     transition: var(--animation) opacity;
     pointer-events: initial;
@@ -100,8 +97,6 @@
       position: fixed;
       right: 20px;
       top: 20px;
-      width: 290px;
-      z-index: 2000;
     }
 
     &__body {
@@ -111,8 +106,6 @@
 
     &__close {
       position: absolute;
-      right: 10px;
-      top: 10px;
     }
   }
 </style>
