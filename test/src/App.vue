@@ -71,9 +71,9 @@
 </template>
 
 <script>
-  import button from './../../button/';
-  import input from './../../input/';
-  import popup from './../../popup/';
+  import button from 'button/';
+  import input from 'input/';
+  import popup from 'popup/';
 
   export default {
     components: {
