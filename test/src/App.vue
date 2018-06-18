@@ -40,22 +40,30 @@
       v-input(v-model="hidden", type="email") v-input(type="email")
       hr
       v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
+    .examples(name="popup")
+      v-button(@click="openDefaultPopup") Open Default Popup
+      v-popup(v-if="defaultPopup", @close="closeDefaultPopup") Here is content...
+        h1(slot="header") Default Popup
+        mark(slot="footer") footer footer footer footer footer
 </template>
 
 <script>
   import button from './../../button/';
   import input from './../../input/';
+  import popup from './../../popup/';
 
   export default {
     components: {
       'v-button': button,
       'v-input': input,
+      'v-popup': popup,
     },
 
     data() {
       return {
         message: '',
         hidden: '',
+        defaultPopup: false,
       };
     },
 
@@ -63,6 +71,12 @@
       alert(string) {
         alert(string);
       },
+      openDefaultPopup() {
+        this.defaultPopup = true;
+      },
+      closeDefaultPopup() {
+        this.defaultPopup = false;
+      }
     },
   };
 </script>
