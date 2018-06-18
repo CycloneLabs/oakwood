@@ -1,13 +1,5 @@
 <template lang="pug">
-  .popup(@click.self = "close(true)")
-    .popup__container
-      slot(name = "external")
-      .popup__header(v-if = "$slots.header")
-        slot(name = "header")
-      .popup__body
-        slot
-      .popup__footer(v-if = "$slots.footer")
-        slot(name = "footer")
+  include template.pug
 </template>
 
 <script>
