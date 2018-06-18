@@ -1,0 +1,18 @@
+transition(duration="200",
+  enter-class="popup--hidden",
+  leave-to-class="popup--hidden",
+  enter-active-class="popup--fade",
+  leave-active-class="popup--fade"
+  )
+  .popup(@click.self = "close(popup.prevent)", v-if = "Object.keys(popup).length")
+    .popup__container
+      .popup__header(v-if = "popup.header")
+        span {{ popup.header }}
+        v-button.popup__close(v-if = "headerClose", @click = "close()") X
+      .popup__body
+        slot
+      .popup__footer(ref = "footer")
+        slot(name = "actions-left")
+        v-button.popup__button(@click = "close()") Отменить
+        slot(name = "actions")
+        slot(name = "actions-right")
