@@ -1,0 +1,11 @@
+.popup(@click.self = "close(true)")
+  .popup__container
+    block header
+      .popup__header(v-if = "$slots.header")
+        slot(name = "header")
+    .popup__body
+      block body
+        slot
+    block footer
+      .popup__footer(v-if = "$slots.footer")
+        slot(name = "footer")
