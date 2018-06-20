@@ -51,10 +51,16 @@
 
       validate() {
         const { input } = this.$refs;
-        let error;
+        let error = '';
 
         input.setCustomValidity('');
-        errors.some(value => input.validity[error = value]); // eslint-disable-line no-return-assign
+
+        errors.some((value) => {
+          if(input.validity[value]) {
+            error = value;
+            return true;
+          }
+        });
 
         this.valid = input.validity.valid;
         this.message = this.messages[error] || input.validationMessage;
