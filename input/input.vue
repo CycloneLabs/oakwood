@@ -17,7 +17,6 @@
     },
 
     mounted() {
-      this.$refs.input.value = this.value;
       if (this.autofocus) this.$refs.input.focus();
     },
 
