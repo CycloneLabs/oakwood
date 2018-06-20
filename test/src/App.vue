@@ -51,28 +51,93 @@
         v-input(:minlength = "2") v-input(:minlength = "2")
         v-input v-input
         button(type = "submit") submit
+    .examples(name="popup")
+      v-button(@click="openPopupDefault") Open default popup
+      v-button(@click="openPopupWithButton") Open popup with "close" button
+      v-button(@click="openPopupWithSubpopup") Open popup with popup within
+      v-button(@click="openPopupOverflow") Open overflowed popup
+
+      v-popup(v-if="popupDefault", @close="closePopupDefault") Popup content place
+        h1(slot="header") Popup header
+        div(slot="footer") popup footer
+      v-popup(v-if="popupWithButton", @close="closePopupWithButton") Popup content place
+        h1(slot="header") Popup header
+        div(slot="footer") popup footer
+        v-button(slot="external", @click="closePopupWithButton") Close button
+      v-popup(v-if="popupOverflow", @close="closePopupOverflow")
+        h1(slot="header") Popup header
+        div(slot="footer") popup footer
+        div(style="height: 120vh; width: 40vw; border: 2px dashed orange")
+          p In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
+          p User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective for that use.[1] Modal windows are prone to mode errors.[1][2][3]
+
+          p On the Web, they often show images in detail, such as those implemented by Lightbox library.[4][5]
+
+          p The opposite of modal is modeless. Modeless windows don't block the main window, so the user can switch their focus between them, treating them as palette windows.
+      v-popup(v-if="popupWithSubpopup", @close="closePopupWithSubpopup")
+        h1(slot="header") Popup header
+        div(slot="footer") popup footer
+        v-button(@click="openSubpopup") Open sub-pop-up
+      v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
 </template>
 
 <script>
-  import button from './../../button/';
-  import input from './../../input/';
+  import button from 'button/';
+  import input from 'input/';
+  import popup from 'popup/';
 
   export default {
     components: {
       'v-button': button,
       'v-input': input,
+      'v-popup': popup,
     },
 
     data() {
       return {
         message: '',
         hidden: '',
+        popupDefault: false,
+        popupWithButton: false,
+        popupOverflow: false,
+        popupWithSubpopup: false,
+        subpopup: false,
       };
     },
 
     methods: {
       alert(string) {
         alert(string);
+      },
+      openPopupDefault() {
+        this.popupDefault = true;
+      },
+      closePopupDefault() {
+        this.popupDefault = false;
+      },
+      openPopupWithButton() {
+        this.popupWithButton = true;
+      },
+      closePopupWithButton() {
+        this.popupWithButton = false;
+      },
+      openPopupOverflow() {
+        this.popupOverflow = true;
+      },
+      closePopupOverflow() {
+        this.popupOverflow = false;
+      },
+      openPopupWithSubpopup() {
+        this.popupWithSubpopup = true;
+      },
+      closePopupWithSubpopup() {
+        this.popupWithSubpopup = false;
+      },
+      openSubpopup() {
+        this.subpopup = true;
+      },
+      closeSubpopup() {
+        this.subpopup = false;
       },
     },
   };
