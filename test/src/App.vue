@@ -37,9 +37,20 @@
       v-input(v-model="message") v-input(v-model="message")
       span v-model output: {{ message }}
       hr
-      v-input(v-model="hidden", type="email") v-input(type="email")
+      v-input(v-model="hidden", type="email", required) v-input(type="email")
       hr
       v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
+    .examples(name="input with validation")
+      form(@submit.prevent="alert('submit')")
+        v-input(type = "email", value = "mail@mail.com") v-input(type = "email")
+        v-input(type = "email",
+          required,
+          :validationMessages = "{valueMissing: 'Вы не заполнили обязательное поле'}"
+          ) v-input(type = "email", required)
+        v-input(:maxlength = "2") v-input(:maxlength = "2")
+        v-input(:minlength = "2") v-input(:minlength = "2")
+        v-input v-input
+        button(type = "submit") submit
 </template>
 
 <script>

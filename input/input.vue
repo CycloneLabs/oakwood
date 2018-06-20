@@ -4,21 +4,43 @@
 
 <script>
   const types = ['text', 'email', 'search', 'tel', 'url', 'password', 'number'];
+  const messageTypes = ['badInput', 'patternMismatch', 'rangeOverflow', 'rangeUnderflow',
+    'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
   export default {
     data() {
       return {
         focus: false,
         valid: true,
+        validationMessage: '',
       };
     },
 
+    mounted() {
+      this.$refs.input.value = this.value;
+      if (this.autofocus) this.$refs.input.focus();
+    },
+
     props: {
+      required: Boolean,
       disabled: Boolean,
       autofocus: Boolean,
       placeholder: String,
+      minlength: Number,
+      maxlength: Number,
       pattern: String,
-      value: String,
+      value: {
+        type: String,
+        default: '',
+      },
+      validationMessages: {
+        type: Object,
+        required: false,
+        default: () => ({}),
+        validator: value => (
+          Object.keys(value).every(type => messageTypes.includes(type))
+        ),
+      },
       type: {
         type: String,
         default: 'text',
@@ -28,8 +50,28 @@
 
     methods: {
       input(event) {
-        this.valid = event.target.validity.valid;
+        this.checkValidity();
         this.$emit('input', event.target.value);
+      },
+
+      checkValidity() {
+        const { input } = this.$refs;
+        input.setCustomValidity('');
+        this.valid = input.validity.valid;
+        this.validationMessage = this.valid ? '' : this.getFailureMessage(input);
+        input.setCustomValidity(this.validationMessage);
+      },
+
+      getFailureMessage(input) {
+        let failedProperty;
+
+        for (const property in input.validity) { // eslint-disable-line no-restricted-syntax
+          if (input.validity[property]) {
+            failedProperty = property;
+          }
+        }
+
+        return this.validationMessages[failedProperty] || input.validationMessage;
       },
     },
 

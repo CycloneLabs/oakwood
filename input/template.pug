@@ -2,20 +2,23 @@
   label(:for="'input' + _uid").input__label
     slot
   .input__wrapper
-    template(v-if="$slots.before")
-      .input__before
+    block before
+      .input__before(v-if="$slots.before")
         slot(name="before")
     input(:id="'input' + _uid").input__control(
-      :autofocus="autofocus",
+      :required="required",
       :disabled="disabled",
       :pattern="pattern",
       :placeholder="placeholder",
       :type="type",
-      :value="value",
+      :minlength="minlength",
+      :maxlength="maxlength",
       @blur="focus = false",
       @focus="focus = true",
-      @input="input"
+      @invalid="checkValidity",
+      @input="input",
+      ref = "input"
       )
-    template(v-if="$slots.after")
-      .input__after
+    block after
+      .input__after(v-if="$slots.after")
         slot(name="after")
