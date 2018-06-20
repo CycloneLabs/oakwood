@@ -4,7 +4,7 @@
 
 <script>
   const types = ['text', 'email', 'search', 'tel', 'url', 'password', 'number'];
-  const messageTypes = ['badInput', 'patternMismatch', 'rangeOverflow', 'rangeUnderflow',
+  const errors = ['badInput', 'patternMismatch', 'rangeOverflow', 'rangeUnderflow',
     'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
   export default {
@@ -12,7 +12,7 @@
       return {
         focus: false,
         valid: true,
-        validationMessage: '',
+        message: '',
       };
     },
 
@@ -22,23 +22,18 @@
     },
 
     props: {
-      required: Boolean,
-      disabled: Boolean,
       autofocus: Boolean,
-      placeholder: String,
-      minlength: Number,
-      maxlength: Number,
-      pattern: String,
+      customOutput: Boolean,
+      disabled: Boolean,
       value: {
         type: String,
         default: '',
       },
-      validationMessages: {
+      messages: {
         type: Object,
-        required: false,
         default: () => ({}),
-        validator: value => (
-          Object.keys(value).every(type => messageTypes.includes(type))
+        validator: object => (
+          Object.keys(object).every(key => errors.includes(key))
         ),
       },
       type: {
@@ -50,28 +45,24 @@
 
     methods: {
       input(event) {
-        this.checkValidity();
+        this.validate();
         this.$emit('input', event.target.value);
       },
 
-      checkValidity() {
+      validate() {
         const { input } = this.$refs;
+        let error = '';
+
         input.setCustomValidity('');
-        this.valid = input.validity.valid;
-        this.validationMessage = this.valid ? '' : this.getFailureMessage(input);
-        input.setCustomValidity(this.validationMessage);
-      },
-
-      getFailureMessage(input) {
-        let failedProperty;
-
-        for (const property in input.validity) { // eslint-disable-line no-restricted-syntax
-          if (input.validity[property]) {
-            failedProperty = property;
+        errors.forEach((value) => {
+          if (input.validity[value]) {
+            error = value;
           }
-        }
+        });
 
-        return this.validationMessages[failedProperty] || input.validationMessage;
+        this.valid = input.validity.valid;
+        this.message = this.messages[error] || input.validationMessage;
+        input.setCustomValidity(this.message);
       },
     },
 
