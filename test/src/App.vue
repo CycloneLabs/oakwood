@@ -43,11 +43,12 @@
     .examples(name="input with validation")
       form(@submit.prevent="alert('submit')")
         v-input(type = "email",
-          value = "mail?",
+          value = "mail@mail.com",
           :messages = "{typeMismatch: 'This is not an email'}",
           :customOutput = "true"
           ) v-input(type = "email", :customOutput = "true")
         v-input(type = "email",
+          v-model="hidden",
           required,
           :messages = "{valueMissing: 'Something missing'}"
           ) v-input(type = "email", required)

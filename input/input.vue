@@ -63,29 +63,6 @@
         this.message = this.messages[error] || input.validationMessage;
         input.setCustomValidity(this.message);
       },
-
-      isMounted() {
-        return new Promise((resolve) => {
-          if (this.$refs.input) {
-            resolve();
-          } else {
-            this.$nextTick(() => {
-              if (this.$refs.input) resolve();
-            });
-          }
-        });
-      },
-    },
-
-    watch: {
-      value: {
-        handler() {
-          this.isMounted().then(() => {
-            this.$refs.input.value = this.value;
-          });
-        },
-        immediate: true,
-      },
     },
 
     computed: {
