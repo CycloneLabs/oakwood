@@ -32,23 +32,27 @@
       hr
       v-input(v-model="hidden", :disabled="true", value="???") v-input(:disabled="true", value="???")
       hr
-      v-input(v-model="hidden", :autofocus="true", value="v-input(:autofocus=\"true\")")
+      v-input(v-model="hidden", :autofocus="true") v-input(:autofocus="true")
       hr
       v-input(v-model="message") v-input(v-model="message")
-      span v-model output: {{ message }}
+      span v-model "message": {{ message }}
       hr
       v-input(v-model="hidden", type="email", required) v-input(type="email")
       hr
       v-input(v-model="hidden", pattern="[1-3]{4,5}") v-input(pattern="[1-3]{4,5}")
     .examples(name="input with validation")
       form(@submit.prevent="alert('submit')")
-        v-input(type = "email", value = "mail@mail.com") v-input(type = "email")
+        v-input(type = "email",
+          value = "mail?",
+          :messages = "{typeMismatch: 'This is not an email'}",
+          :customOutput = "true"
+          ) v-input(type = "email", :customOutput = "true")
         v-input(type = "email",
           required,
-          :validationMessages = "{valueMissing: 'Вы не заполнили обязательное поле'}"
+          :messages = "{valueMissing: 'Something missing'}"
           ) v-input(type = "email", required)
-        v-input(:maxlength = "2") v-input(:maxlength = "2")
-        v-input(:minlength = "2") v-input(:minlength = "2")
+        v-input(:maxlength = "3") v-input(:maxlength = "3")
+        v-input(:minlength = "3") v-input(:minlength = "3")
         v-input v-input
         button(type = "submit") submit
     .examples(name="popup")
