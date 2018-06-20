@@ -54,11 +54,9 @@
         let error = '';
 
         input.setCustomValidity('');
-
-        errors.some((value) => {
-          if(input.validity[value]) {
+        errors.forEach((value) => {
+          if (input.validity[value]) {
             error = value;
-            return true;
           }
         });
 
