@@ -17,7 +17,6 @@
     },
 
     mounted() {
-      this.$refs.input.value = this.value;
       if (this.autofocus) this.$refs.input.focus();
     },
 
@@ -63,6 +62,29 @@
         this.valid = input.validity.valid;
         this.message = this.messages[error] || input.validationMessage;
         input.setCustomValidity(this.message);
+      },
+
+      isMounted() {
+        return new Promise((resolve) => {
+          if (this.$refs.input) {
+            resolve();
+          } else {
+            this.$nextTick(() => {
+              if (this.$refs.input) resolve();
+            });
+          }
+        });
+      },
+    },
+
+    watch: {
+      value: {
+        handler() {
+          this.isMounted().then(() => {
+            this.$refs.input.value = this.value;
+          });
+        },
+        immediate: true,
       },
     },
 
