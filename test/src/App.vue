@@ -84,18 +84,25 @@
         div(slot="footer") popup footer
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
+    .examples(name="select")
+      v-select(:options="options", @select="selected = $event")
+        | :options="options", @select = "selected = $event"
+      v-select(:options="options", v-model="selected", @select="selected = $event")
+        | :options="options", v-model = "selected", @select = "selected = $event"
 </template>
 
 <script>
   import button from 'button/';
   import input from 'input/';
   import popup from 'popup/';
+  import select from 'select/select.vue';
 
   export default {
     components: {
       'v-button': button,
       'v-input': input,
       'v-popup': popup,
+      'v-select': select,
     },
 
     data() {
@@ -107,6 +114,12 @@
         popupOverflow: false,
         popupWithSubpopup: false,
         subpopup: false,
+        options: [
+          { value: 0, name: 'option 0' },
+          { value: 1, name: 'option 1' },
+          { value: 2, name: 'option 2' },
+        ],
+        selected: 2,
       };
     },
 
