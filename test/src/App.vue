@@ -85,8 +85,8 @@
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
     .examples(name="select")
-      v-select(:options="options", @select="selected = $event")
-        | :options="options", @select = "selected = $event"
+      v-select(:options="options", @select="selected = $event", autofocus)
+        | :options="options", @select = "selected = $event", autofocus
       v-select(:options="options", v-model="selected", @select="selected = $event")
         | :options="options", v-model = "selected", @select = "selected = $event"
 </template>

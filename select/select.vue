@@ -1,14 +1,5 @@
 <template lang="pug">
-  .select
-    .select__label(tabindex="-1", @focusin.self = "moveFocus")
-      slot
-      .select__wrapper(tabindex="0", ref = "select", @click = "open", @blur = "close")
-        .select__option {{ selected }}
-        .select__dropdown(v-if = "isShown")
-          template(v-for = "option in options")
-            .select__option(:class = "className(option)",
-              @click.stop = "select(option.value)",)
-              | {{ option.name }}
+  include template.pug
 </template>
 
 <script>
@@ -17,6 +8,10 @@
       return {
         isShown: false,
       };
+    },
+
+    mounted() {
+      if (this.autofocus) this.$refs.select.focus();
     },
 
     props: {
@@ -31,6 +26,10 @@
 
       value: {
         required: false,
+      },
+
+      autofocus: {
+        type: Boolean,
       },
     },
 
