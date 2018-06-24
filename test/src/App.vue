@@ -105,7 +105,7 @@
           v-model = "short",
           minlength="10",
           maxlength="11",
-          :customOutput="true,
+          :customOutput="true",
           :messages=`{
             tooShort: 'textarea value is too short',
             valueMissing: 'this field is required',
