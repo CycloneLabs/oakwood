@@ -85,8 +85,9 @@
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
     .examples(name="progress")
-      v-button(@click="progress(1)") Progress 1
-      v-button(@click="progress(10)") Progress 10
+      v-button(@click="progress(1)") 1 iteration
+      v-button(@click="progress(5)") 5 iterations
+      v-button(@click="progress(10)") 10 iterations
     v-progress
 </template>
 

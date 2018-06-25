@@ -1,12 +1,5 @@
 <template lang="pug">
-  transition(duration = "200",
-    enter-class = "progress--transparent",
-    leave-to-class = "progress--transparent")
-    .progress(v-if = "value")
-      block circle
-        .progress__circle
-          .progress__counter
-            template(v-if = "value") {{ value }}
+  include template.pug
 </template>
 
 <script>
@@ -57,7 +50,6 @@
 
   .progress {
     align-items: center;
-    background: rgba(white, 0.2);
     bottom: 0;
     display: flex;
     justify-content: center;
