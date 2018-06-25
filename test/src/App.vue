@@ -153,7 +153,7 @@
         if (n) {
           this.$progress.increment();
           setTimeout(() => this.$progress.decrement(), 2000);
-          setTimeout(() => this.progress(n-1), 200);
+          setTimeout(() => this.progress(n - 1), 200);
         }
       },
     },
