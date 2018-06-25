@@ -2,10 +2,11 @@
   transition(duration = "200",
     enter-class = "progress--transparent",
     leave-to-class = "progress--transparent")
-    .progress(v-if = "value", :style = "style")
-      .progress__circle
-        .progress__counter
-          template(v-if = "value") {{ value }}
+    .progress(v-if = "value")
+      block circle
+        .progress__circle
+          .progress__counter
+            template(v-if = "value") {{ value }}
 </template>
 
 <script>
@@ -16,35 +17,6 @@
       events.$on('increment', this.increment);
       events.$on('decrement', this.decrement);
       events.$on('terminate', this.terminate);
-    },
-
-    props: {
-      spinner: {
-        default: '#7603BD',
-        type: String,
-        required: false,
-      },
-
-      background: {
-        default: '#FFFFFF',
-        type: String,
-        required: false,
-      },
-
-      size: {
-        default: 50,
-        required: false,
-      },
-    },
-
-    computed: {
-      style() {
-        return {
-          '--size': `${parseInt(this.size, 10)}px`,
-          '--spinner': this.hexToRgb(this.spinner),
-          '--background': this.hexToRgb(this.background),
-        };
-      },
     },
 
     data() {
@@ -85,7 +57,7 @@
 
   .progress {
     align-items: center;
-    background: rgba(var(--background), 0.2);
+    background: rgba(white, 0.2);
     bottom: 0;
     display: flex;
     justify-content: center;
@@ -100,12 +72,12 @@
       align-items: center;
       animation: rotate 5s linear infinite;
       border-radius: 50%;
-      border: 5px solid rgba(var(--spinner), 1);
-      border-bottom-color: rgba(var(--spinner), 0.5);
+      border: 5px solid rgba(#9165F1, 1);
+      border-bottom-color: rgba(#9165F1, 0.5);
       display: flex;
-      height: var(--size);
+      height: 50px;
       justify-content: center;
-      width: var(--size);
+      width: 50px;
     }
 
     &__counter {

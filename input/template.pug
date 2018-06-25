@@ -1,0 +1,25 @@
+.input(:class="states")
+  label(:for="'input' + _uid").input__label
+    slot
+  .input__wrapper
+    block before
+      .input__before(v-if="$slots.before")
+        slot(name="before")
+    block input
+      input(:id="'input' + _uid").input__control(
+        v-bind="$attrs",
+        :value = "value",
+        :customOutput="customOutput",
+        :type="type",
+        :autofocus="autofocus",
+        :disabled="disabled"
+        @blur="focus = false",
+        @focus="focus = true",
+        @invalid="validate",
+        @input="input",
+        ref = "input"
+        )
+    block after
+      .input__after(v-if="$slots.after")
+        slot(name="after")
+  .input__error(v-if="customOutput && message") {{ message }}
