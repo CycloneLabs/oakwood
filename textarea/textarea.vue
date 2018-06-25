@@ -80,7 +80,6 @@
   }
 
   .textarea--disabled {
-    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -119,7 +118,6 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px #488144;
     }
   }
 </style>
