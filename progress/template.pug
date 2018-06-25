@@ -1,0 +1,8 @@
+transition(duration = "200",
+  enter-class = "progress--transparent",
+  leave-to-class = "progress--transparent")
+  .progress(v-if = "value", tabindex = "-1", @blur = "blur")
+    block circle
+      .progress__circle
+        .progress__counter
+          template(v-if = "value") {{ value }}

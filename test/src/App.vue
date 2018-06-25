@@ -84,6 +84,11 @@
         div(slot="footer") popup footer
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
+    .examples(name="progress")
+      v-button(@click="progress(1)") 1 iteration
+      v-button(@click="progress(5)") 5 iterations
+      v-button(@click="progress(10)") 10 iterations
+    v-progress
 </template>
 
 <script>
@@ -143,6 +148,13 @@
       },
       closeSubpopup() {
         this.subpopup = false;
+      },
+      progress(n) {
+        if (n) {
+          this.$progress.increment();
+          setTimeout(() => this.$progress.decrement(), 2000);
+          setTimeout(() => this.progress(n - 1), 200);
+        }
       },
     },
   };
