@@ -13,6 +13,8 @@
   "rules": {
     "no-multiple-empty-lines": ["error", {
       "max": 1
-    }]
+    }],
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
   }
 }

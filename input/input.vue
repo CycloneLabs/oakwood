@@ -4,21 +4,37 @@
 
 <script>
   const types = ['text', 'email', 'search', 'tel', 'url', 'password', 'number'];
+  const errors = ['badInput', 'patternMismatch', 'rangeOverflow', 'rangeUnderflow',
+    'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
   export default {
     data() {
       return {
         focus: false,
         valid: true,
+        message: '',
       };
     },
 
+    mounted() {
+      if (this.autofocus) this.$refs.input.focus();
+    },
+
     props: {
-      disabled: Boolean,
       autofocus: Boolean,
-      placeholder: String,
-      pattern: String,
-      value: String,
+      customOutput: Boolean,
+      disabled: Boolean,
+      value: {
+        type: String,
+        default: '',
+      },
+      messages: {
+        type: Object,
+        default: () => ({}),
+        validator: object => (
+          Object.keys(object).every(key => errors.includes(key))
+        ),
+      },
       type: {
         type: String,
         default: 'text',
@@ -28,8 +44,24 @@
 
     methods: {
       input(event) {
-        this.valid = event.target.validity.valid;
+        this.validate();
         this.$emit('input', event.target.value);
+      },
+
+      validate() {
+        const { input } = this.$refs;
+        let error = '';
+
+        input.setCustomValidity('');
+        errors.forEach((value) => {
+          if (input.validity[value]) {
+            error = value;
+          }
+        });
+
+        this.valid = input.validity.valid;
+        this.message = this.messages[error] || input.validationMessage;
+        input.setCustomValidity(this.message);
       },
     },
 
