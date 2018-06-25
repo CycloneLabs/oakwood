@@ -21,6 +21,16 @@
     methods: {
       increment() {
         this.value += 1;
+
+        if (this.value === 1) {
+          this.$nextTick(() => {
+            this.$el.focus();
+          });
+        }
+      },
+
+      blur(e) {
+        e.target.focus();
       },
 
       decrement() {
@@ -53,6 +63,10 @@
     top: 0;
     transition: opacity 0.2s;
     z-index: 3000;
+
+    &:focus {
+      background: magenta;
+    }
 
     &__circle {
       align-items: center;
