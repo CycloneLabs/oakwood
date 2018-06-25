@@ -66,12 +66,10 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 2px #488144;
     }
 
     &:disabled,
     &--disabled {
-      opacity: 0.5;
       pointer-events: none;
     }
   }
