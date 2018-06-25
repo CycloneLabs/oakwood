@@ -1,0 +1,23 @@
+.textarea(:class="states")
+  label(:for="'textarea' + _uid").textarea__label
+    slot
+  .textarea__wrapper
+    block before
+      .textarea__before(v-if="$slots.before")
+        slot(name="before")
+    block textarea
+      textarea(:id="'textarea' + _uid").textarea__control(
+        v-bind="$attrs",
+        :value = "value",
+        :customOutput="customOutput",
+        :disabled="disabled",
+        @blur="focus = false",
+        @focus="focus = true",
+        @invalid="validate",
+        @input="input",
+        ref = "textarea"
+        )
+    block after
+      .textarea__after(v-if="$slots.after")
+        slot(name="after")
+  .textarea__error(v-if="customOutput && message") {{ message }}
