@@ -64,10 +64,6 @@
     transition: opacity 0.2s;
     z-index: 3000;
 
-    &:focus {
-      background: magenta;
-    }
-
     &__circle {
       align-items: center;
       animation: rotate 5s linear infinite;
