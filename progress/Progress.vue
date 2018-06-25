@@ -19,12 +19,6 @@
     },
 
     methods: {
-      hexToRgb(hexString) {
-        const chunks = hexString.slice(-6).match(/.{1,2}/g);
-        const color = chunks.map(chunk => parseInt(chunk, 16)).join(', ');
-        return color;
-      },
-
       increment() {
         this.value += 1;
       },
