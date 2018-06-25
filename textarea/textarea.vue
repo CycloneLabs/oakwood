@@ -106,6 +106,7 @@
     text-decoration: none;
     text-rendering: optimizelegibility;
     transition: var(--animation-time, 0.3s) ease-out;
+    transition-property: color, box-shadow;
     vertical-align: middle;
     width: 100%;
 
