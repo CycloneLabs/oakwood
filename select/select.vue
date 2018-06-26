@@ -73,7 +73,7 @@
         this.setFocused(index);
       },
 
-      down() {
+      moveDown() {
         if (this.isOpen) {
           this.next();
         } else {
@@ -81,13 +81,13 @@
         }
       },
 
-      up() {
+      moveUp() {
         if (this.isOpen) {
           this.prev();
         }
       },
 
-      altDown() {
+      pickLast() {
         if (this.isOpen) {
           this.setFocused(this.options.length - 1);
         } else {
@@ -95,7 +95,7 @@
         }
       },
 
-      moveUp() {
+      pickFirst() {
         if (this.isOpen) {
           this.setFocused(0);
         }
@@ -123,7 +123,8 @@
 </script>
 
 <style lang="scss" scoped>
-  .select {
+  .select,
+  .option {
     min-height: 1em;
   }
 </style>
