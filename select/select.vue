@@ -20,7 +20,7 @@
         type: Array,
         validator(array) {
           return array.every(item => (
-            Object.keys(item).every(key => ['value', 'name'].includes(key))
+            Object.keys(item).every(key => ['value', 'name'].includes(key) && item[key].toString().trim())
           ));
         },
       },
@@ -32,11 +32,15 @@
       autofocus: {
         type: Boolean,
       },
+
+      disabled: {
+        type: Boolean,
+      },
     },
 
     methods: {
       open() {
-        this.focused = this.value || this.options[0].value;
+        this.focused = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
         this.isOpen = true;
       },
 
@@ -48,6 +52,10 @@
         this.$refs.select.focus();
       },
 
+      setFocused(index) {
+        this.focused = this.options[index].value;
+      },
+
       select(value) {
         if (this.isOpen) {
           this.$emit('input', value);
@@ -57,12 +65,12 @@
 
       next() {
         const index = Math.min(this.options.length - 1, this.indexOfFocused + 1);
-        this.focused = this.options[index].value;
+        this.setFocused(index);
       },
 
       prev() {
         const index = Math.max(0, this.indexOfFocused - 1);
-        this.focused = this.options[index].value;
+        this.setFocused(index);
       },
 
       down() {
@@ -81,20 +89,27 @@
 
       altDown() {
         if (this.isOpen) {
-          this.focused = this.options.length - 1;
+          this.setFocused(this.options.length - 1);
         } else {
           this.open();
         }
       },
 
-      altUp() {
+      moveUp() {
         if (this.isOpen) {
-          this.focused = 0;
+          this.setFocused(0);
         }
       },
     },
 
     computed: {
+      classes() {
+        return {
+          'select--focused': this.focused !== '',
+          'select--disabled': this.disabled,
+        };
+      },
+
       selected() {
         const selected = this.options.find(o => o.value === this.value) || {};
         return selected.name || '';
@@ -109,22 +124,6 @@
 
 <style lang="scss" scoped>
   .select {
-    &__value {
-      border: 1px solid black;
-      min-height: 20px;
-    }
-  }
-
-  .option {
-    border: 1px solid black;
-    min-height: 20px;
-
-    &--selected {
-      background-image: linear-gradient(90deg, transparent 90%, black 0);
-    }
-
-    &--focused {
-      background-color: lightcyan;
-    }
+    min-height: 1em;
   }
 </style>

@@ -88,7 +88,11 @@
       v-select(:options="options", autofocus)
         | :options="options", @select = "selected = $event", autofocus
       v-select(:options="options", v-model="selected")
-        | :options="options", v-model = "selected", @select = "selected = $event"
+        | :options="options", v-model = "selected"
+      v-select(:options="booleanOptions", v-model="booleanSelected")
+        | :options="booleanOptions", v-model = "booleanSelected"
+      v-select(:options="booleanOptions", v-model="booleanSelected", disabled)
+        | :options="booleanOptions", v-model = "booleanSelected"
 </template>
 
 <script>
@@ -119,6 +123,11 @@
           { value: 1, name: 'option 1' },
           { value: 2, name: 'option 2' },
         ],
+        booleanOptions: [
+          { value: true, name: 'true' },
+          { value: false, name: 'false' },
+        ],
+        booleanSelected: true,
         selected: 2,
       };
     },
