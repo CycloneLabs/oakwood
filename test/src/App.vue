@@ -93,6 +93,36 @@
         | :options="booleanOptions", v-model = "booleanSelected"
       v-select(:options="booleanOptions", v-model="booleanSelected", disabled)
         | :options="booleanOptions", v-model = "booleanSelected"
+    .examples(name="textarea")
+      v-textarea(v-model = "textarea")
+        b v-model = "textarea"
+      hr
+      v-textarea(v-model = "textarea", disabled)
+        b v-model = "textarea", disabled
+      hr
+      v-textarea(v-model = "textarea", autofocus)
+        b v-model = "textarea", autofocus
+      hr
+      v-textarea(v-model = "textarea", accesskey="c", readonly)
+        b v-model = "textarea", accesskey="c", readonly
+      hr
+      v-textarea(v-model = "textarea", cols="200", rows="8", wrap="hard")
+        b v-model = "textarea", cols="200", rows="8", wrap="hard"
+      hr
+      form(@submit.prevent="alert")
+        v-textarea(required,
+          v-model = "short",
+          minlength="10",
+          maxlength="11",
+          :customOutput="true",
+          :messages=`{
+            tooShort: 'textarea value is too short',
+            valueMissing: 'this field is required',
+          }`
+          )
+          b required, minlength="10", maxlength="11"
+        button(type="submit") submit form
+      hr
 </template>
 
 <script>
@@ -100,6 +130,7 @@
   import input from 'input/';
   import popup from 'popup/';
   import select from 'select/select.vue';
+  import textarea from 'textarea/';
 
   export default {
     components: {
@@ -107,10 +138,13 @@
       'v-input': input,
       'v-popup': popup,
       'v-select': select,
+      'v-textarea': textarea,
     },
 
     data() {
       return {
+        textarea: 'Wristwatch nodal point tube franchise Shibuya faded katana motion RAF. Convenience store math-rebar monofilament shrine sunglasses network Tokyo voodoo god. Euro-pop alcohol disposable order-flow futurity rifle digital skyscraper long-chain hydrocarbons cartel A.I.. Otaku engine ablative nodality sprawl uplink marketing franchise katana free-market stimulate. Military-grade shoes Shibuya media footage hotdog uplink human decay beef noodles 3D-printed office range-rover grenade.',
+        short: '',
         message: '',
         hidden: '',
         popupDefault: false,
