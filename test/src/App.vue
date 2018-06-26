@@ -84,6 +84,15 @@
         div(slot="footer") popup footer
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
+    .examples(name="select")
+      v-select(:options="options", autofocus)
+        | :options="options", @select = "selected = $event", autofocus
+      v-select(:options="options", v-model="selected")
+        | :options="options", v-model = "selected"
+      v-select(:options="booleanOptions", v-model="booleanSelected")
+        | :options="booleanOptions", v-model = "booleanSelected"
+      v-select(:options="booleanOptions", v-model="booleanSelected", disabled)
+        | :options="booleanOptions", v-model = "booleanSelected"
     .examples(name="textarea")
       v-textarea(v-model = "textarea")
         b v-model = "textarea"
@@ -120,6 +129,7 @@
   import button from 'button/';
   import input from 'input/';
   import popup from 'popup/';
+  import select from 'select/select.vue';
   import textarea from 'textarea/';
 
   export default {
@@ -127,6 +137,7 @@
       'v-button': button,
       'v-input': input,
       'v-popup': popup,
+      'v-select': select,
       'v-textarea': textarea,
     },
 
@@ -141,6 +152,17 @@
         popupOverflow: false,
         popupWithSubpopup: false,
         subpopup: false,
+        options: [
+          { value: 0, name: 'option 0' },
+          { value: 1, name: 'option 1' },
+          { value: 2, name: 'option 2' },
+        ],
+        booleanOptions: [
+          { value: true, name: 'true' },
+          { value: false, name: 'false' },
+        ],
+        booleanSelected: true,
+        selected: 2,
       };
     },
 
