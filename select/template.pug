@@ -16,7 +16,7 @@
     .select__value {{ selected }}
     .select__dropdown(v-if = "isOpen")
       template(v-for = "option in options")
-        .option(
+        .select__option(
           :class = `{
             'option--selected': option.value === value,
             'option--focused': option.value === focused

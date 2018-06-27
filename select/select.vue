@@ -107,7 +107,7 @@
 
 <style lang="scss" scoped>
   .select,
-  .option {
+  .select__option {
     min-height: 1em;
   }
 
