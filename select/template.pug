@@ -1,0 +1,26 @@
+.select
+  .select__label(@click = "moveFocus", :class = "classes")
+    slot
+  .select__wrapper(tabindex="0",
+    ref = "control",
+    @blur = "close",
+    @click = "open",
+    @keydown.esc.prevent = "close",
+    @keydown.space.prevent = "select(focused)",
+    @keydown.enter.prevent = "select(focused)",
+    @keydown.alt.up.prevent = "pickFirst",
+    @keydown.alt.down.prevent = "pickLast",
+    @keydown.up.exact.prevent = "pickPrev",
+    @keydown.down.exact.prevent = "pickNext",
+    )
+    .select__value {{ selected }}
+    .select__dropdown(v-if = "isOpen")
+      template(v-for = "option in options")
+        .select__option(
+          :class = `{
+            'option--selected': option.value === value,
+            'option--focused': option.value === focused
+          }`,
+          @click.stop = "select(option.value)",
+          @mouseenter = "focused = option.value")
+          | {{ option.name }}

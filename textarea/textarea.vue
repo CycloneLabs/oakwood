@@ -3,7 +3,6 @@
 </template>
 
 <script>
-  const types = ['text', 'email', 'search', 'tel', 'url', 'password', 'number'];
   const errors = ['badInput', 'patternMismatch', 'rangeOverflow', 'rangeUnderflow',
     'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
@@ -17,11 +16,10 @@
     },
 
     mounted() {
-      if (this.autofocus) this.$refs.input.focus();
+      if (this.$attrs.autofocus) this.$refs.textarea.focus();
     },
 
     props: {
-      autofocus: Boolean,
       customOutput: Boolean,
       disabled: Boolean,
       value: {
@@ -35,11 +33,6 @@
           Object.keys(object).every(key => errors.includes(key))
         ),
       },
-      type: {
-        type: String,
-        default: 'text',
-        validator: value => types.includes(value),
-      },
     },
 
     methods: {
@@ -49,29 +42,29 @@
       },
 
       validate() {
-        const { input } = this.$refs;
+        const { textarea } = this.$refs;
         let error = '';
 
-        input.setCustomValidity('');
+        textarea.setCustomValidity('');
         errors.forEach((value) => {
-          if (input.validity[value]) {
+          if (textarea.validity[value]) {
             error = value;
           }
         });
 
-        this.valid = input.validity.valid;
-        this.message = this.messages[error] || input.validationMessage;
-        input.setCustomValidity(this.message);
+        this.valid = textarea.validity.valid;
+        this.message = this.messages[error] || textarea.validationMessage;
+        textarea.setCustomValidity(this.message);
       },
     },
 
     computed: {
       states() {
         return {
-          'input--focus': this.focus,
-          'input--valid': this.valid,
-          'input--invalid': !this.valid,
-          'input--disabled': this.disabled,
+          'textarea--focus': this.focus,
+          'textarea--valid': this.valid,
+          'textarea--invalid': !this.valid,
+          'textarea--disabled': this.disabled,
         };
       },
     },
@@ -80,21 +73,21 @@
 </script>
 
 <style lang="scss">
-  .input,
-  .input__wrapper,
-  .input__control {
+  .textarea,
+  .textarea__wrapper,
+  .textarea__control {
     width: 100%;
   }
 
-  .input--disabled {
+  .textarea--disabled {
     pointer-events: none;
   }
 
-  .input__wrapper {
+  .textarea__wrapper {
     display: flex;
   }
 
-  .input__control {
+  .textarea__control {
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-fill-color: currentColor;
     appearance: initial;
@@ -112,6 +105,7 @@
     text-decoration: none;
     text-rendering: optimizelegibility;
     transition: var(--animation-time, 0.3s) ease-out;
+    transition-property: color, box-shadow;
     vertical-align: middle;
     width: 100%;
 
