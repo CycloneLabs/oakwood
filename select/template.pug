@@ -1,26 +1,29 @@
-.select
-  .select__label(@click = "moveFocus", :class = "classes")
+.select(:class = "classes")
+  .select__label(@click = "focusChange")
     slot
-  .select__wrapper(tabindex="0",
+  .select__wrapper(:tabindex="disabled ? -1 : 0",
     ref = "control",
     @blur = "close",
     @click = "open",
     @keydown.esc.prevent = "close",
-    @keydown.space.prevent = "select(focus)",
-    @keydown.enter.prevent = "select(focus)",
+    @keydown.space.prevent = "select(focusValue)",
+    @keydown.enter.prevent = "select(focusValue)",
     @keydown.alt.up.prevent = "pickFirst",
     @keydown.alt.down.prevent = "pickLast",
     @keydown.up.exact.prevent = "pickPrev",
     @keydown.down.exact.prevent = "pickNext",
     )
-    .select__value {{ selected }}
+    .select__value 
+      block value
+        | {{ selected }}
+        block arrow
     .select__dropdown(v-show = "opened")
       template(v-for = "option in options")
         .select__option(
           :class = `{
             'select--option-selected': option.value === value,
-            'select--option-focused': option.value === focus
+            'select--option-focused': option.value === focusValue
           }`,
           @click.stop = "select(option.value)",
-          @mouseenter = "focus = option.value")
+          @mouseenter = "focusValue = option.value")
           | {{ option.name }}

@@ -17,7 +17,14 @@
     },
 
     mounted() {
-      if (this.autofocus) this.$refs.input.focus();
+      this.$refs.control.addEventListener('focus', this.focusChanged);
+      this.$refs.control.addEventListener('blur', this.focusChanged);
+      if (this.autofocus) this.$refs.control.focus();
+    },
+
+    beforeDestroy() {
+      this.$refs.control.removeEventListener('focus', this.focusChanged);
+      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -43,25 +50,30 @@
     },
 
     methods: {
+
+      focusChanged(event) {
+        this.focus = event.target === document.activeElement;
+      },
+
       input(event) {
         this.validate();
         this.$emit('input', event.target.value);
       },
 
       validate() {
-        const { input } = this.$refs;
+        const { control } = this.$refs;
         let error = '';
 
-        input.setCustomValidity('');
+        control.setCustomValidity('');
         errors.forEach((value) => {
-          if (input.validity[value]) {
+          if (control.validity[value]) {
             error = value;
           }
         });
 
-        this.valid = input.validity.valid;
-        this.message = this.messages[error] || input.validationMessage;
-        input.setCustomValidity(this.message);
+        this.valid = control.validity.valid;
+        this.message = this.messages[error] || control.validationMessage;
+        control.setCustomValidity(this.message);
       },
     },
 

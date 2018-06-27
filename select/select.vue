@@ -6,13 +6,21 @@
   export default {
     data() {
       return {
+        focus: false,
         opened: false,
-        focus: '',
+        focusValue: '',
       };
     },
 
     mounted() {
+      this.$refs.control.addEventListener('focus', this.focusChanged);
+      this.$refs.control.addEventListener('blur', this.focusChanged);
       if (this.autofocus) this.$refs.control.focus();
+    },
+
+    beforeDestroy() {
+      this.$refs.control.removeEventListener('focus', this.focusChanged);
+      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -32,21 +40,25 @@
 
     methods: {
       open() {
-        this.focus = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
+        this.focusValue = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
         this.opened = true;
       },
 
       close() {
-        this.focus = '';
+        this.focusValue = '';
         this.opened = false;
       },
 
-      moveFocus() {
+      focusChanged(event) {
+        this.focus = event.target === document.activeElement;
+      },
+
+      focusChange() {
         this.$refs.control.focus();
       },
 
-      setFocus(index) {
-        this.focus = this.options[index].value;
+      setFocusValue(index) {
+        this.focusValue = this.options[index].value;
       },
 
       select(value) {
@@ -58,9 +70,9 @@
 
       pickNext() {
         if (this.opened) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focus);
+          const oldIndex = this.options.findIndex(o => o.value === this.focusValue);
           const newIndex = Math.min(this.options.length - 1, oldIndex + 1);
-          this.setFocus(newIndex);
+          this.setFocusValue(newIndex);
         } else {
           this.open();
         }
@@ -68,15 +80,15 @@
 
       pickPrev() {
         if (this.opened) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focus);
+          const oldIndex = this.options.findIndex(o => o.value === this.focusValue);
           const newIndex = Math.max(0, oldIndex - 1);
-          this.setFocus(newIndex);
+          this.setFocusValue(newIndex);
         }
       },
 
       pickLast() {
         if (this.opened) {
-          this.setFocus(this.options.length - 1);
+          this.setFocusValue(this.options.length - 1);
         } else {
           this.open();
         }
@@ -84,7 +96,7 @@
 
       pickFirst() {
         if (this.opened) {
-          this.setFocus(0);
+          this.setFocusValue(0);
         }
       },
     },
@@ -92,7 +104,7 @@
     computed: {
       classes() {
         return {
-          'select--focus': document.activeElement === this.$refs.control,
+          'select--focus': this.focus,
           'select--disabled': this.disabled,
           'select--opened': this.opened,
         };
@@ -120,5 +132,9 @@
 
   .select__wrapper:focus {
     outline: none;
+  }
+
+  .select--disabled {
+    pointer-events: none;
   }
 </style>
