@@ -87,7 +87,7 @@
     .examples(name="notify")
       v-button(@click="notify") notify
       hr
-      v-notify(:timeout = "200000", :animation = "300")
+      v-notify(:timeout = "2000")
     .examples(name="select")
       v-select(:options="options", v-model="selected", autofocus)
         | :options="options", @select = "selected = $event", autofocus

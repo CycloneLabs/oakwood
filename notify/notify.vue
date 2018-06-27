@@ -19,12 +19,6 @@
         type: Number,
         default: 5000,
       },
-
-      animation: {
-        required: false,
-        type: Number,
-        default: 200,
-      },
     },
 
     components: {
@@ -70,26 +64,11 @@
 </script>
 
 <style lang="scss">
-  :root {
-    --animation: 200ms;
-  }
-
   .notification {
-    box-sizing: border-box;
     overflow: hidden;
     position: relative;
-    transition: var(--animation) opacity;
     pointer-events: initial;
     width: 100%;
-
-    &--appear,
-    &--disappear {
-      opacity: 0;
-    }
-
-    &--move {
-      transition: transform var(--animation);
-    }
 
     &__container {
       box-sizing: border-box;
