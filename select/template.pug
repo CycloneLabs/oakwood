@@ -6,21 +6,21 @@
     @blur = "close",
     @click = "open",
     @keydown.esc.prevent = "close",
-    @keydown.space.prevent = "select(focused)",
-    @keydown.enter.prevent = "select(focused)",
+    @keydown.space.prevent = "select(focus)",
+    @keydown.enter.prevent = "select(focus)",
     @keydown.alt.up.prevent = "pickFirst",
     @keydown.alt.down.prevent = "pickLast",
     @keydown.up.exact.prevent = "pickPrev",
     @keydown.down.exact.prevent = "pickNext",
     )
     .select__value {{ selected }}
-    .select__dropdown(v-if = "isOpen")
+    .select__dropdown(v-show = "opened")
       template(v-for = "option in options")
         .select__option(
           :class = `{
-            'option--selected': option.value === value,
-            'option--focused': option.value === focused
+            'select--option-selected': option.value === value,
+            'select--option-focused': option.value === focus
           }`,
           @click.stop = "select(option.value)",
-          @mouseenter = "focused = option.value")
+          @mouseenter = "focus = option.value")
           | {{ option.name }}

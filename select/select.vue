@@ -6,8 +6,8 @@
   export default {
     data() {
       return {
-        isOpen: false,
-        focused: '',
+        opened: false,
+        focus: '',
       };
     },
 
@@ -32,58 +32,59 @@
 
     methods: {
       open() {
-        this.focused = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
-        this.isOpen = true;
+        this.focus = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
+        this.opened = true;
       },
 
       close() {
-        this.isOpen = false;
+        this.focus = '';
+        this.opened = false;
       },
 
       moveFocus() {
         this.$refs.control.focus();
       },
 
-      setFocused(index) {
-        this.focused = this.options[index].value;
+      setFocus(index) {
+        this.focus = this.options[index].value;
       },
 
       select(value) {
-        if (this.isOpen) {
+        if (this.opened) {
           this.$emit('input', value);
-          this.isOpen = false;
+          this.opened = false;
         }
       },
 
       pickNext() {
-        if (this.isOpen) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+        if (this.opened) {
+          const oldIndex = this.options.findIndex(o => o.value === this.focus);
           const newIndex = Math.min(this.options.length - 1, oldIndex + 1);
-          this.setFocused(newIndex);
+          this.setFocus(newIndex);
         } else {
           this.open();
         }
       },
 
       pickPrev() {
-        if (this.isOpen) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+        if (this.opened) {
+          const oldIndex = this.options.findIndex(o => o.value === this.focus);
           const newIndex = Math.max(0, oldIndex - 1);
-          this.setFocused(newIndex);
+          this.setFocus(newIndex);
         }
       },
 
       pickLast() {
-        if (this.isOpen) {
-          this.setFocused(this.options.length - 1);
+        if (this.opened) {
+          this.setFocus(this.options.length - 1);
         } else {
           this.open();
         }
       },
 
       pickFirst() {
-        if (this.isOpen) {
-          this.setFocused(0);
+        if (this.opened) {
+          this.setFocus(0);
         }
       },
     },
@@ -91,9 +92,9 @@
     computed: {
       classes() {
         return {
-          // TODO Bug
-          'select--focused': this.focused !== '',
+          'select--focus': document.activeElement === this.$refs.control,
           'select--disabled': this.disabled,
+          'select--opened': this.opened,
         };
       },
 
@@ -109,6 +110,8 @@
   .select,
   .select__option {
     min-height: 1em;
+    cursor: default;
+    user-select: none;
   }
 
   .select__wrapper:-moz-focusring {
