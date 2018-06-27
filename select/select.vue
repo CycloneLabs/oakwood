@@ -12,7 +12,7 @@
     },
 
     mounted() {
-      if (this.autofocus) this.$refs.select.focus();
+      if (this.autofocus) this.$refs.control.focus();
     },
 
     props: {
@@ -25,17 +25,9 @@
         },
       },
 
-      value: {
-        required: false,
-      },
-
-      autofocus: {
-        type: Boolean,
-      },
-
-      disabled: {
-        type: Boolean,
-      },
+      value: [String, Number, Boolean],
+      autofocus: Boolean,
+      disabled: Boolean,
     },
 
     methods: {
@@ -49,7 +41,7 @@
       },
 
       moveFocus() {
-        this.$refs.select.focus();
+        this.$refs.control.focus();
       },
 
       setFocused(index) {
@@ -63,27 +55,21 @@
         }
       },
 
-      next() {
-        const index = Math.min(this.options.length - 1, this.indexOfFocused + 1);
-        this.setFocused(index);
-      },
-
-      prev() {
-        const index = Math.max(0, this.indexOfFocused - 1);
-        this.setFocused(index);
-      },
-
-      moveDown() {
+      pickNext() {
         if (this.isOpen) {
-          this.next();
+          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+          const newIndex = Math.min(this.options.length - 1, oldIndex + 1);
+          this.setFocused(newIndex);
         } else {
           this.open();
         }
       },
 
-      moveUp() {
+      pickPrev() {
         if (this.isOpen) {
-          this.prev();
+          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+          const newIndex = Math.max(0, oldIndex - 1);
+          this.setFocused(newIndex);
         }
       },
 
@@ -105,18 +91,15 @@
     computed: {
       classes() {
         return {
+          // TODO Bug
           'select--focused': this.focused !== '',
           'select--disabled': this.disabled,
         };
       },
 
       selected() {
-        const selected = this.options.find(o => o.value === this.value) || {};
-        return selected.name || '';
-      },
-
-      indexOfFocused() {
-        return this.options.findIndex(o => o.value === this.focused);
+        const selected = this.options.find(option => option.value === this.value);
+        return selected && selected.name;
       },
     },
   };
@@ -124,7 +107,15 @@
 
 <style lang="scss" scoped>
   .select,
-  .option {
+  .select__option {
     min-height: 1em;
+  }
+
+  .select__wrapper:-moz-focusring {
+    outline: none;
+  }
+
+  .select__wrapper:focus {
+    outline: none;
   }
 </style>
