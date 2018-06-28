@@ -16,7 +16,14 @@
     },
 
     mounted() {
-      if (this.$attrs.autofocus) this.$refs.textarea.focus();
+      this.$refs.control.addEventListener('focus', this.focusChanged);
+      this.$refs.control.addEventListener('blur', this.focusChanged);
+      if (this.$attrs.autofocus) this.$refs.control.focus();
+    },
+
+    beforeDestroy() {
+      this.$refs.control.removeEventListener('focus', this.focusChanged);
+      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -36,25 +43,30 @@
     },
 
     methods: {
+
+      focusChanged(event) {
+        this.focus = event.target === document.activeElement;
+      },
+
       input(event) {
         this.validate();
         this.$emit('input', event.target.value);
       },
 
       validate() {
-        const { textarea } = this.$refs;
+        const { control } = this.$refs;
         let error = '';
 
-        textarea.setCustomValidity('');
+        control.setCustomValidity('');
         errors.forEach((value) => {
-          if (textarea.validity[value]) {
+          if (control.validity[value]) {
             error = value;
           }
         });
 
-        this.valid = textarea.validity.valid;
-        this.message = this.messages[error] || textarea.validationMessage;
-        textarea.setCustomValidity(this.message);
+        this.valid = control.validity.valid;
+        this.message = this.messages[error] || control.validationMessage;
+        control.setCustomValidity(this.message);
       },
     },
 

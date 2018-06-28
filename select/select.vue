@@ -6,13 +6,21 @@
   export default {
     data() {
       return {
-        isOpen: false,
-        focused: '',
+        focus: false,
+        opened: false,
+        focusValue: '',
       };
     },
 
     mounted() {
+      this.$refs.control.addEventListener('focus', this.focusChanged);
+      this.$refs.control.addEventListener('blur', this.focusChanged);
       if (this.autofocus) this.$refs.control.focus();
+    },
+
+    beforeDestroy() {
+      this.$refs.control.removeEventListener('focus', this.focusChanged);
+      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -32,58 +40,63 @@
 
     methods: {
       open() {
-        this.focused = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
-        this.isOpen = true;
+        this.focusValue = typeof this.value !== 'undefined' ? this.value : this.options[0].value;
+        this.opened = true;
       },
 
       close() {
-        this.isOpen = false;
+        this.focusValue = '';
+        this.opened = false;
       },
 
-      moveFocus() {
+      focusChanged(event) {
+        this.focus = event.target === document.activeElement;
+      },
+
+      focusChange() {
         this.$refs.control.focus();
       },
 
-      setFocused(index) {
-        this.focused = this.options[index].value;
+      setFocusValue(index) {
+        this.focusValue = this.options[index].value;
       },
 
       select(value) {
-        if (this.isOpen) {
+        if (this.opened) {
           this.$emit('input', value);
-          this.isOpen = false;
+          this.opened = false;
         }
       },
 
       pickNext() {
-        if (this.isOpen) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+        if (this.opened) {
+          const oldIndex = this.options.findIndex(o => o.value === this.focusValue);
           const newIndex = Math.min(this.options.length - 1, oldIndex + 1);
-          this.setFocused(newIndex);
+          this.setFocusValue(newIndex);
         } else {
           this.open();
         }
       },
 
       pickPrev() {
-        if (this.isOpen) {
-          const oldIndex = this.options.findIndex(o => o.value === this.focused);
+        if (this.opened) {
+          const oldIndex = this.options.findIndex(o => o.value === this.focusValue);
           const newIndex = Math.max(0, oldIndex - 1);
-          this.setFocused(newIndex);
+          this.setFocusValue(newIndex);
         }
       },
 
       pickLast() {
-        if (this.isOpen) {
-          this.setFocused(this.options.length - 1);
+        if (this.opened) {
+          this.setFocusValue(this.options.length - 1);
         } else {
           this.open();
         }
       },
 
       pickFirst() {
-        if (this.isOpen) {
-          this.setFocused(0);
+        if (this.opened) {
+          this.setFocusValue(0);
         }
       },
     },
@@ -91,9 +104,9 @@
     computed: {
       classes() {
         return {
-          // TODO Bug
-          'select--focused': this.focused !== '',
+          'select--focus': this.focus,
           'select--disabled': this.disabled,
+          'select--opened': this.opened,
         };
       },
 
@@ -109,6 +122,8 @@
   .select,
   .select__option {
     min-height: 1em;
+    cursor: default;
+    user-select: none;
   }
 
   .select__wrapper:-moz-focusring {
@@ -117,5 +132,9 @@
 
   .select__wrapper:focus {
     outline: none;
+  }
+
+  .select--disabled {
+    pointer-events: none;
   }
 </style>

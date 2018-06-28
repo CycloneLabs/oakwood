@@ -12,12 +12,10 @@
         :customOutput="customOutput",
         :type="type",
         :autofocus="autofocus",
-        :disabled="disabled"
-        @blur="focus = false",
-        @focus="focus = true",
+        :disabled="disabled",
         @invalid="validate",
         @input="input",
-        ref = "input"
+        ref = "control"
         )
     block after
       .input__after(v-if="$slots.after")

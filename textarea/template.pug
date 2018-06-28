@@ -11,11 +11,9 @@
         :value = "value",
         :customOutput="customOutput",
         :disabled="disabled",
-        @blur="focus = false",
-        @focus="focus = true",
         @invalid="validate",
         @input="input",
-        ref = "textarea"
+        ref = "control"
         )
     block after
       .textarea__after(v-if="$slots.after")
