@@ -1,0 +1,15 @@
+.notification__container
+  block header
+
+  .notification__body
+    .notification(v-for = "notification in notifications",
+      :key = "notification.timestamp",
+      :class = "notification.className",
+      @click.self = "destroyNotification(notification, notification.type === 'error')")
+      template
+        | {{ notification.message }}
+        block additional
+
+        v-button.notification__close(type = "simple", @click = "destroyNotification(notification)")
+          slot
+            | ×

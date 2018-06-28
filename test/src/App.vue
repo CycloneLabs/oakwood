@@ -84,6 +84,10 @@
         div(slot="footer") popup footer
         v-button(@click="openSubpopup") Open sub-pop-up
       v-popup(v-if="subpopup", @close="closeSubpopup") Popup over popup!
+    .examples(name="notify")
+      v-button(@click="notify") notify
+      hr
+      v-notify(:timeout = "2000")
     .examples(name="select")
       v-select(:options="options", v-model="selected", autofocus)
         | :options="options", @select = "selected = $event", autofocus
@@ -132,8 +136,12 @@
   import select from 'select/select.vue';
   import textarea from 'textarea/';
 
+  import notify from './../../notify/notify.vue';
+  import events from './../../notify/events';
+
   export default {
     components: {
+      'v-notify': notify,
       'v-button': button,
       'v-input': input,
       'v-popup': popup,
@@ -169,6 +177,9 @@
     methods: {
       alert(string) {
         alert(string);
+      },
+      notify() {
+        events.$emit('default', 'Notification');
       },
       openPopupDefault() {
         this.popupDefault = true;
