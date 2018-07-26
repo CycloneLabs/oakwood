@@ -1,13 +1,15 @@
 .input(:class="states")
-  label(:for="'input' + _uid").input__label
+  label.input__label(:for="'input' + _uid")
     slot
   .input__wrapper
     block before
       .input__before(v-if="$slots.before")
         slot(name="before")
     block input
-      input(:id="'input' + _uid").input__control(
+      input.input__control(
         v-bind="$attrs",
+        ref = "control"
+        :id="'input' + _uid"
         :value = "value",
         :type="type",
         :autofocus="autofocus",
@@ -17,7 +19,6 @@
         @blur="focusUpdate",
         @invalid="validate",
         @input="input",
-        ref = "control"
         )
     block after
       .input__after(v-if="$slots.after")
