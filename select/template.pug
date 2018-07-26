@@ -7,7 +7,7 @@
     @focus = "focusUpdate"
     @blur = "focusUpdate",
     @click = "toggle",
-    @keydown.esc.prevent = "close",
+    @keydown.esc.prevent.stop = "close",
     @keydown.space.prevent = "select(focusValue)",
     @keydown.enter.prevent = "select(focusValue)",
     @keydown.alt.up.prevent = "pickFirst",

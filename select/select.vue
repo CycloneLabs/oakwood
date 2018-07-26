@@ -39,7 +39,11 @@
 
       close() {
         this.focusValue = '';
-        this.opened = false;
+        if (this.opened) {
+          this.opened = false;
+        } else {
+          this.$refs.control.blur();
+        }
       },
 
       toggle() {
