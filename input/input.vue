@@ -17,14 +17,7 @@
     },
 
     mounted() {
-      this.$refs.control.addEventListener('focus', this.focusChanged);
-      this.$refs.control.addEventListener('blur', this.focusChanged);
       if (this.autofocus) this.$refs.control.focus();
-    },
-
-    beforeDestroy() {
-      this.$refs.control.removeEventListener('focus', this.focusChanged);
-      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -51,8 +44,10 @@
 
     methods: {
 
-      focusChanged(event) {
-        this.focus = event.target === document.activeElement;
+      focusUpdate() {
+        setTimeout(() => {
+          this.focus = this.$refs.control === document.activeElement && document.hasFocus();
+        }, 50);
       },
 
       input(event) {

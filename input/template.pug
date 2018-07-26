@@ -13,6 +13,8 @@
         :type="type",
         :autofocus="autofocus",
         :disabled="disabled",
+        @focus="focusUpdate",
+        @blur="focusUpdate",
         @invalid="validate",
         @input="input",
         ref = "control"
