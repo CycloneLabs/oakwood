@@ -7,12 +7,14 @@
         slot(name="before")
     block textarea
       textarea(:id="'textarea' + _uid").textarea__control(
-        v-bind="$attrs",
+        v-bind = "$attrs",
         :value = "value",
-        :customOutput="customOutput",
-        :disabled="disabled",
-        @invalid="validate",
-        @input="input",
+        :customOutput = "customOutput",
+        :disabled = "disabled",
+        @focus = "focusUpdate",
+        @blur = "focusUpdate",
+        @invalid = "validate",
+        @input = "input",
         ref = "control"
         )
     block after

@@ -1,11 +1,13 @@
 .select(:class = "classes")
-  .select__label(@click = "focusChange")
+  .select__label(@click = "focusMove")
     slot
-  .select__wrapper(:tabindex="disabled ? -1 : 0",
+  .select__wrapper(
+    :tabindex="disabled ? -1 : 0",
     ref = "control",
-    @blur = "close",
-    @click = "open",
-    @keydown.esc.prevent = "close",
+    @focus = "focusUpdate"
+    @blur = "focusUpdate",
+    @click = "toggle",
+    @keydown.esc.prevent.stop = "close",
     @keydown.space.prevent = "select(focusValue)",
     @keydown.enter.prevent = "select(focusValue)",
     @keydown.alt.up.prevent = "pickFirst",

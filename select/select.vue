@@ -13,14 +13,7 @@
     },
 
     mounted() {
-      this.$refs.control.addEventListener('focus', this.focusChanged);
-      this.$refs.control.addEventListener('blur', this.focusChanged);
       if (this.autofocus) this.$refs.control.focus();
-    },
-
-    beforeDestroy() {
-      this.$refs.control.removeEventListener('focus', this.focusChanged);
-      this.$refs.control.removeEventListener('blur', this.focusChanged);
     },
 
     props: {
@@ -46,14 +39,31 @@
 
       close() {
         this.focusValue = '';
-        this.opened = false;
+        if (this.opened) {
+          this.opened = false;
+        } else {
+          this.$refs.control.blur();
+        }
       },
 
-      focusChanged(event) {
-        this.focus = event.target === document.activeElement;
+      toggle() {
+        if (this.opened) {
+          this.close();
+        } else {
+          this.open();
+        }
       },
 
-      focusChange() {
+      focusUpdate() {
+        setTimeout(() => {
+          this.focus = this.$refs.control === document.activeElement && document.hasFocus();
+          if (!this.focus) {
+            this.close();
+          }
+        }, 50);
+      },
+
+      focusMove() {
         this.$refs.control.focus();
       },
 

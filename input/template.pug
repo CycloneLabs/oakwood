@@ -9,10 +9,12 @@
       input(:id="'input' + _uid").input__control(
         v-bind="$attrs",
         :value = "value",
-        :customOutput="customOutput",
         :type="type",
         :autofocus="autofocus",
         :disabled="disabled",
+        :placeholder="placeholder",
+        @focus="focusUpdate",
+        @blur="focusUpdate",
         @invalid="validate",
         @input="input",
         ref = "control"

@@ -72,13 +72,20 @@
       v-popup(v-if="popupOverflow", @close="closePopupOverflow")
         h1(slot="header") Popup header
         div(slot="footer") popup footer
-        div(style="height: 120vh; width: 40vw; border: 2px dashed orange")
-          p In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
-          p User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective for that use.[1] Modal windows are prone to mode errors.[1][2][3]
-
-          p On the Web, they often show images in detail, such as those implemented by Lightbox library.[4][5]
-
-          p The opposite of modal is modeless. Modeless windows don't block the main window, so the user can switch their focus between them, treating them as palette windows.
+        v-select(:options="options", v-model="selected", autofocus)
+          | :options="options", @select = "selected = $event", autofocus
+        p In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
+        p User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective for that use.[1] Modal windows are prone to mode errors.[1][2][3]
+        p On the Web, they often show images in detail, such as those implemented by Lightbox library.[4][5]
+        p The opposite of modal is modeless. Modeless windows don't block the main window, so the user can switch their focus between them, treating them as palette windows.
+        p In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
+        p User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective for that use.[1] Modal windows are prone to mode errors.[1][2][3]
+        p On the Web, they often show images in detail, such as those implemented by Lightbox library.[4][5]
+        p The opposite of modal is modeless. Modeless windows don't block the main window, so the user can switch their focus between them, treating them as palette windows.
+        p In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
+        p User interfaces typically use modal windows to command user awareness and to display emergency states, though interaction designers argue they are ineffective for that use.[1] Modal windows are prone to mode errors.[1][2][3]
+        p On the Web, they often show images in detail, such as those implemented by Lightbox library.[4][5]
+        p The opposite of modal is modeless. Modeless windows don't block the main window, so the user can switch their focus between them, treating them as palette windows.
       v-popup(v-if="popupWithSubpopup", @close="closePopupWithSubpopup")
         h1(slot="header") Popup header
         div(slot="footer") popup footer
@@ -236,5 +243,19 @@
 
   :focus {
     box-shadow: 0 0 4px 2px forestgreen !important;
+  }
+
+  .popup {
+    background: rgba(0,0,0, 0.4)
+  }
+
+  .popup__container {
+    width: 40vw;
+    background: white;
+  }
+  .popup__header,
+  .popup__footer,
+  .popup__body {
+    padding: 40px;
   }
 </style>

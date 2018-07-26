@@ -5,19 +5,25 @@
 <script>
   export default {
     props: {
-      backgroundClose: {
+      closeByBackground: {
+        type: Boolean,
+        default: true,
+      },
+      closeByEsc: {
         type: Boolean,
         default: true,
       },
     },
 
     methods: {
-      close(byBackground) {
-        if (byBackground && this.backgroundClose) {
-          this.$emit('close');
-        } else if (!byBackground) {
-          this.$emit('close');
-        }
+      closeBackground() {
+        if (this.closeByBackground) this.$emit('close');
+      },
+      closeEsc() {
+        if (this.closeByEsc) this.$emit('close');
+      },
+      close() {
+        this.$emit('close');
       },
     },
   };
