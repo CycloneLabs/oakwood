@@ -1,4 +1,8 @@
-.popup(@click.self = "close(true)")
+.popup(
+  tabindex = "-1",
+  @click.self = "closeBackground",
+  @keydown.esc.prevent.stop = "closeEsc",
+  )
   .popup__container
     block header
       .popup__header(v-if = "$slots.header")
