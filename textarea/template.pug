@@ -6,8 +6,10 @@
       .textarea__before(v-if="$slots.before")
         slot(name="before")
     block textarea
-      textarea(:id="'textarea' + _uid").textarea__control(
+      textarea.textarea__control(
         v-bind = "$attrs",
+        ref = "control"
+        :id="'textarea' + _uid"
         :value = "value",
         :customOutput = "customOutput",
         :disabled = "disabled",
@@ -15,7 +17,6 @@
         @blur = "focusUpdate",
         @invalid = "validate",
         @input = "input",
-        ref = "control"
         )
     block after
       .textarea__after(v-if="$slots.after")
