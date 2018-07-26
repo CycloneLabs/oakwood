@@ -22,6 +22,7 @@
 
     props: {
       autofocus: Boolean,
+      placeholder: String,
       customOutput: Boolean,
       disabled: Boolean,
       value: {
