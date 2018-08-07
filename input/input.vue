@@ -8,6 +8,8 @@
     'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
   export default {
+    inheritAttrs: false,
+
     data() {
       return {
         focus: false,
@@ -22,7 +24,6 @@
 
     props: {
       autofocus: Boolean,
-      placeholder: String,
       customOutput: Boolean,
       disabled: Boolean,
       value: {
@@ -80,6 +81,7 @@
           'input--valid': this.valid,
           'input--invalid': !this.valid,
           'input--disabled': this.disabled,
+          'input--nolabel': !this.$refs.default,
         };
       },
     },

@@ -7,6 +7,8 @@
     'stepMismatch', 'tooLong', 'tooShort', 'typeMismatch', 'valueMissing'];
 
   export default {
+    inheritAttrs: false,
+
     data() {
       return {
         focus: false,
@@ -72,6 +74,7 @@
           'textarea--valid': this.valid,
           'textarea--invalid': !this.valid,
           'textarea--disabled': this.disabled,
+          'textarea--nolabel': !this.$refs.default,
         };
       },
     },
