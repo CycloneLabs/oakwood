@@ -1,5 +1,5 @@
 .textarea(:class="states")
-  label(:for="'textarea' + _uid").textarea__label
+  label.textarea__label(v-if="$slots.default", :for="'textarea' + _uid")
     slot
   .textarea__wrapper
     block before

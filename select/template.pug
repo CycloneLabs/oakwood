@@ -1,5 +1,5 @@
 .select(:class = "classes")
-  .select__label(@click = "focusMove")
+  .select__label(v-if = "$slots.default", @click = "focusMove")
     slot
   .select__wrapper(
     ref = "control",

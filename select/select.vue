@@ -117,6 +117,7 @@
           'select--focus': this.focus,
           'select--disabled': this.disabled,
           'select--opened': this.opened,
+          'select--nolabel': !this.$slots.default,
         };
       },
 

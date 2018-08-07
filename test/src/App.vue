@@ -12,6 +12,8 @@
       v-button(@click="alert('click')") v-button(@click="alert('click')")
       hr
     .examples(name="input")
+      v-input(v-model="hidden", placeholder="Input without label")
+      hr
       v-input(v-model="hidden") v-input
       hr
       v-input(v-model="hidden") v-input with slot "before"
