@@ -81,7 +81,7 @@
           'input--valid': this.valid,
           'input--invalid': !this.valid,
           'input--disabled': this.disabled,
-          'input--nolabel': !this.$refs.default,
+          'input--nolabel': !this.$slots.default,
         };
       },
     },

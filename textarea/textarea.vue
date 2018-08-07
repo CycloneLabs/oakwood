@@ -74,7 +74,7 @@
           'textarea--valid': this.valid,
           'textarea--invalid': !this.valid,
           'textarea--disabled': this.disabled,
-          'textarea--nolabel': !this.$refs.default,
+          'textarea--nolabel': !this.$slots.default,
         };
       },
     },
