@@ -162,7 +162,7 @@
         popupWithSubpopup: false,
         subpopup: false,
         options: [
-          { value: 0, name: 'option 0' },
+          { value: 0, name: 'option 0', oneMoreOption: 'which wont cause validation warning' },
           { value: 1, name: 'option 1' },
           { value: 2, name: 'option 2' },
         ],
