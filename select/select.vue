@@ -21,7 +21,7 @@
         type: Array,
         validator(array) {
           return array.every(item => (
-            ['value', 'name'].every(key => Object.keys(item).includes(key) && item[key].toString().trim())
+            ['value', 'name'].every(key => item[key] && item[key].toString().trim())
           ));
         },
       },
