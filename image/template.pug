@@ -1,0 +1,15 @@
+.image__wrapper
+  img.image.image--preview(v-if = "!fullLoaded",
+    :src="preview",
+    v-bind="$attrs",
+    v-on="$listeners",
+    @load="onloaded('preview')",
+    @error="onloaded('preview')"
+    )
+  img.image(v-if="previewLoaded", v-show="fullLoaded",
+    :src="full",
+    v-bind="$attrs",
+    v-on="$listeners",
+    @load="onloaded('full')"
+    )
+  slot

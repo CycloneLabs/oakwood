@@ -132,14 +132,22 @@
           b required, minlength="10", maxlength="11"
         button(type="submit") submit form
       hr
+    .examples.examples--row(name="lazy images")
+      v-image(v-for="(image, key) in images",
+        :key="key",
+        :preview="image.preview",
+        :full="image.full",
+        :alt="image.title",
+        ) {{ image.title }}
 </template>
 
 <script>
   import button from 'button/';
   import input from 'input/';
   import popup from 'popup/';
-  import select from 'select/select.vue';
+  import select from 'select/';
   import textarea from 'textarea/';
+  import image from 'image/';
 
   export default {
     components: {
@@ -148,6 +156,7 @@
       'v-popup': popup,
       'v-select': select,
       'v-textarea': textarea,
+      'v-image': image,
     },
 
     data() {
@@ -172,6 +181,19 @@
         ],
         booleanSelected: true,
         selected: 2,
+        images: [{
+          preview: 'https://images.pexels.com/photos/1213049/pexels-photo-1213049.jpeg?auto=compress&cs=tinysrgb&h=4&w=6',
+          full: 'https://images.pexels.com/photos/misspell/pexels-photo-1213049.jpeg?auto=compress&cs=tinysrgb&h=426&w=640',
+          title: 'incorrect \'full\' url',
+        }, {
+          preview: 'https://images.pexels.com/photos/misspell/pexels-photo-1043519.jpeg?auto=compress&cs=tinysrgb&h=3&w=6',
+          full: 'https://images.pexels.com/photos/1043519/pexels-photo-1043519.jpeg?auto=compress&cs=tinysrgb&h=388&w=640',
+          title: 'incorrect \'preview\' url',
+        }, {
+          preview: 'https://images.pexels.com/photos/681336/pexels-photo-681336.jpeg?auto=compress&cs=tinysrgb&h=3&w=6',
+          full: 'https://images.pexels.com/photos/681336/pexels-photo-681336.jpeg?auto=compress&cs=tinysrgb&h=359&w=640',
+          title: 'both urls are correct',
+        }],
       };
     },
 
@@ -243,6 +265,14 @@
     margin-bottom: 16px;
   }
 
+  .examples--row {
+    flex-flow: row wrap;
+  }
+
+  .examples--row::before {
+    width: 100%;
+  }
+
   :focus {
     box-shadow: 0 0 4px 2px forestgreen !important;
   }
@@ -255,9 +285,19 @@
     width: 40vw;
     background: white;
   }
+
   .popup__header,
   .popup__footer,
   .popup__body {
     padding: 40px;
+  }
+
+  .image__wrapper {
+    display: inline-block;
+    width:  300px;
+  }
+
+  .image__wrapper + .image__wrapper {
+    margin-left: 20px;
   }
 </style>
