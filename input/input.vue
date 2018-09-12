@@ -20,10 +20,12 @@
 
     mounted() {
       if (this.autofocus) this.$refs.control.focus();
+      if (this.autoselect) this.$refs.control.select();
     },
 
     props: {
       autofocus: Boolean,
+      autoselect: Boolean,
       customOutput: Boolean,
       disabled: Boolean,
       value: {
@@ -45,7 +47,6 @@
     },
 
     methods: {
-
       focusUpdate() {
         setTimeout(() => {
           this.focus = this.$refs.control === document.activeElement && document.hasFocus();
