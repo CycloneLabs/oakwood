@@ -15,10 +15,11 @@
     @keydown.up.exact.prevent = "pickPrev",
     @keydown.down.exact.prevent = "pickNext",
     )
-    .select__value 
+    .select__value
       block value
         | {{ selected }}
         block arrow
+    .select__message(v-if="message") {{ message }}
     .select__dropdown(v-show = "opened")
       template(v-for = "option in options")
         .select__option(
