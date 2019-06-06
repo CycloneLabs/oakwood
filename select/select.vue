@@ -28,7 +28,7 @@
     },
 
     props: {
-      missingValue: {
+      errorMessage: {
         type: String,
         default: 'Value missing',
       },
@@ -135,7 +135,7 @@
         if (this.valid) {
           this.message = ''
         } else {
-          this.message = this.missingValue
+          this.message = this.errorMessage
         }
       }
     },
