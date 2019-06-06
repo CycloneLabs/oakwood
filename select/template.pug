@@ -19,7 +19,7 @@
       block value
         | {{ selected }}
         block arrow
-    .select__message(v-if="message") {{ message }}
+    .select__error(v-if="message") {{ message }}
     .select__dropdown(v-show = "opened")
       template(v-for = "option in options")
         .select__option(
