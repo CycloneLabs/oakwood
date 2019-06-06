@@ -147,7 +147,7 @@
           'select--disabled': this.disabled,
           'select--opened': this.opened,
           'select--nolabel': !this.$slots.default,
-          'select--error': this.errorMessage,
+          'select--invalid': !this.valid,
         };
       },
 
