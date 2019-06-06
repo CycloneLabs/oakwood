@@ -21,12 +21,8 @@
     watch: {
       value: {
         immediate: true,
-        handler(value) {
-          if (!value && this.required) {
-            this.message = this.missingValue;
-          } else {
-            this.message = '';
-          }
+        handler() {
+          this.validate()
         }
       }
     },
@@ -135,7 +131,7 @@
       },
 
       validate() {
-        this.valid = !(!value && this.required)
+        this.valid = !this.required || this.value;
         if (this.valid) {
           this.message = ''
         } else {
