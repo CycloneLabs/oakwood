@@ -19,7 +19,6 @@
       block value
         | {{ selected }}
         block arrow
-    .select__error(v-if="message") {{ message }}
     .select__dropdown(v-show = "opened")
       template(v-for = "option in options")
         .select__option(
@@ -30,3 +29,4 @@
           @click.stop = "select(option.value)",
           @mouseenter = "focusValue = option.value")
           | {{ option.name }}
+  .select__error(v-if="message") {{ message }}
