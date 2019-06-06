@@ -9,6 +9,8 @@
         focus: false,
         opened: false,
         focusValue: '',
+        message: '',
+        valid: true,
       };
     },
 
@@ -16,7 +18,23 @@
       if (this.autofocus) this.$refs.control.focus();
     },
 
+    watch: {
+      value: {
+        immediate: true,
+        handler() {
+          this.validate()
+        }
+      }
+    },
+
     props: {
+      missingValue: {
+        type: String,
+        default: 'Value missing',
+      },
+
+      required: Boolean,
+
       options: {
         type: Array,
         validator(array) {
@@ -111,6 +129,15 @@
           this.setFocusValue(0);
         }
       },
+
+      validate() {
+        this.valid = !this.required || this.value;
+        if (this.valid) {
+          this.message = ''
+        } else {
+          this.message = this.missingValue
+        }
+      }
     },
 
     computed: {
@@ -120,6 +147,7 @@
           'select--disabled': this.disabled,
           'select--opened': this.opened,
           'select--nolabel': !this.$slots.default,
+          'select--error': this.errorMessage,
         };
       },
 
